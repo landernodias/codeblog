@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -13,7 +13,7 @@
 
 <header>
     <!-- As a link -->
-    <nav class="navbar navbar-light bg-light">
+    <nav class="navbar navbar-light bg-light" style="margin-left: 10px;">
         <span class="navbar-brand mb-0 h1" style="font-weight: bold;">MyCodeBlog</span>
     </nav>
 
@@ -27,9 +27,20 @@
             </ol>
         </nav>
 
-        <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;">
+        <div class="card shadow-sm bg-white rounded" style="margin-top: 20px;" th:each="post : ${posts}">
             <div class="card-body">
-                teste card
+                <p class="card-subtitle mb-2 text-muted" style="font-size: 0.8rem;"></p>
+                    <span th:text="${post.author}"></span>
+                    <span th:text="${post.date}"></span>
+                <a href="#">
+                    <h4 class="card-title" style="font-weight: bold; color: black; padding-top: 5px;">
+                        <span th:text="${post.title}"></span>
+                    </h4>
+                </a>
+
+                <p class="card-text">
+                    <span th:utext="${#strings.abbreviate(post.content,400)}"></span>
+                </p>
             </div>
         </div>
     </div>
