@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-public class CodeBlogController {
+public class CodeblogController {
 
     @Autowired
     CodeblogService codeblogService;
@@ -26,7 +26,7 @@ public class CodeBlogController {
     }
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
-    public ModelAndView getpostsDetails(@PathVariable("id") Long id) {
+    public ModelAndView getPostDetails(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("postsDatails");
         Post post = codeblogService.findById(id);
         mv.addObject("post", post);
