@@ -4,11 +4,17 @@ import com.blog.codeblob.model.Post;
 import com.blog.codeblob.service.CodeblogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.Binding;
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -31,6 +37,21 @@ public class CodeblogController {
         Post post = codeblogService.findById(id);
         mv.addObject("post", post);
         return mv;
+    }
+
+    @RequestMapping(value = "/newpost", method = RequestMethod.GET)
+    public String getPostForm(){
+        return "postForm";
+    }
+
+    @RequestMapping(value = "/newpost", method = RequestMethod.POST)
+    public String savePost(@Valid Post post, BindingResult result, RedirectAttributes attributes){
+        if(result.hasErrors()) {
+            return "redirect:/newpost"; // se tiver erro redireciona para corrigir o post
+        }
+        post.setDate(LocalDate.now());
+        codeblogService.save(post);
+        return "redirect:/posts"; // após salvar redireciona para pagina de posts
     }
 
 }
