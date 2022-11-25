@@ -1,0 +1,13 @@
+<!doctype html>
+<html
+        lang="pt-br"
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:th="http://thymeleaf.org">
+<head>
+</head>
+<body>
+    <div class="alert alert-danger alert-dismissible" role="alert" th:if="${not #strings.isEmpty(mensage)}">
+        <span th:text="${mensage}"></span>
+    </div>
+</body>
+</html>
